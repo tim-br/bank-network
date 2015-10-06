@@ -25,3 +25,11 @@
       (deposit 46 my-bank-account)
       (is (= @my-bank-account 246))
       (reset! my-bank-account old-balance))))
+
+(deftest can-add-account
+  (testing "need to be able to add new accounts"
+    (let [new-account { :amount 0 :type "checking"}]
+      (add-new-account new-account)
+      (is (= (:amount (@bank-accounts @counter) 0)))
+      (is (= (:type (@bank-accounts @counter) "checking"))))))
+
