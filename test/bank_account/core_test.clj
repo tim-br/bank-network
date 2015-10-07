@@ -30,6 +30,6 @@
   (testing "need to be able to add new accounts"
     (let [new-account { :amount 0 :type "checking"}]
       (add-new-account new-account)
-      (is (= (:amount (@bank-accounts @counter) 0)))
-      (is (= (:type (@bank-accounts @counter) "checking"))))))
+      (is (= (:amount (@bank-accounts @counter)) 0))
+      (is (= (:type (@bank-accounts @counter)) "checking")))))
 
