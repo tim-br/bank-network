@@ -28,8 +28,18 @@
 
 (deftest can-add-account
   (testing "need to be able to add new accounts"
-    (let [new-account { :amount 0 :type "checking"}]
+    (let [new-account { :type "checking"}]
       (add-new-account new-account)
       (is (= (:amount (@bank-accounts @counter)) 0))
       (is (= (:type (@bank-accounts @counter)) "checking")))))
 
+(deftest can-add-account-with-initial-sum
+  (let [new-account {:amount 65 :type "savings"}]
+    (add-new-account new-account)
+    (is (= 65 (:amount (@bank-accounts @counter))))))
+
+(deftest can-create-person
+  (testing "person type"
+    (let [new-person-map {:fname "tim" :lname "Will" :id 32}
+          person (add-person new-person-map)]
+      (is (= (:fname person) "tim")))))

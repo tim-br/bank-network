@@ -5,10 +5,15 @@
 
 ;(defrecord Person [fname lname bank-account-id
 
+
 (s/defrecord Person
   [fname :- s/Str
    lname :- s/Str
    bank-account-id :- s/Int])
+
+(s/defn ^:always-validate add-person [{:keys [fname lname id]}]
+  (Person. fname lname id))
+
 
 
 (def counter (atom 0))
@@ -24,8 +29,9 @@
   (swap! bank-atom #(+ % amount)))
 
 (defn add-new-account
-  [{:keys [type]}]
+  [{:keys [type amount], :or {amount 0 }}]
   (let [id (swap! counter inc)]
-    (println "the type is" type)
-    (swap! bank-accounts assoc id {:id id :type type :amount 0})))
+    (swap! bank-accounts assoc id {:id id :type type :amount amount})))
+
+(s/validate Person (Person. "Tim" "Wi" 32))
 
